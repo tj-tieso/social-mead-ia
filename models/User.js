@@ -23,10 +23,20 @@ const UserSchema = new Schema(
         "Please provide a valid email address",
       ],
     },
-    // // Array of _id values referencing the Thought model
-    // thoughts: [],
-    // // Array of _id values referencing the User model (self-reference)
-    // friends: [],
+    // Array of _id values referencing the Thought model
+    thoughts: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Thought",
+      },
+    ],
+    // Array of _id values referencing the User model (self-reference)
+    friends: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
   },
   {
     toJSON: {

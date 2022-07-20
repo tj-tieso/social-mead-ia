@@ -1,12 +1,11 @@
 const { User } = require("../models");
 
 // REQUIRED ROUTES
-// getAllUsers, getUserById, createUser, updateUser, deleteUser
+// getAllUsers, getUserById, createUser, updateUser, deleteUser, addfriend, deleteFriend
 
 const userController = {
   getAllUsers(req, res) {
     User.find({})
-      // TO DO: populate thoughts
       .select("-__v")
       .then((dbUserData) => res.json(dbUserData))
       .catch((err) => {
@@ -18,7 +17,10 @@ const userController = {
   // get User by Id
   getUserById({ params }, res) {
     User.findOne({ _id: params.id })
-      // TO DO: populate thoughts
+      .populate({
+        path: "thoughts",
+        select: "-__v",
+      })
       .select("-__v")
       .then((dbUserData) => {
         if (!dbUserData) {
@@ -69,6 +71,10 @@ const userController = {
       })
       .catch((err) => res.status(400).json(err));
   },
+
+  addFriend({}, res) {},
+
+  deleteFriend({}, res) {},
 };
 
 module.exports = userController;
