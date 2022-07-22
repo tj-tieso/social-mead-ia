@@ -104,7 +104,17 @@ const thoughtController = {
       .catch((err) => res.status(400).json(err));
   },
 
-  deleteReaction({}) {},
+  deleteReaction({ params }, res) {
+    Thought.findOneAndUpdate(
+      { _id: params.thoughtId },
+      // remove the specific reaction from replies array
+      // where reactionId matches value of params.reactionId passed in
+      { $pull: { reactions: { reactionId: params.reactionId } } },
+      { new: true }
+    )
+      .then((dbThoughtData) => res.json(dbThoughtData))
+      .catch((err) => res.json(err));
+  },
 };
 
 module.exports = thoughtController;
