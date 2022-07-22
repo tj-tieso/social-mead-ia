@@ -1,4 +1,4 @@
-const { Thought } = require("../models");
+const { Thought, User } = require("../models");
 
 // REQUIRED ROUTES
 // getAllThoughts, getUserThoughts, createThought,
@@ -38,7 +38,22 @@ const thoughtController = {
 
   createThought({ body }, res) {
     Thought.create(body)
-      .then((dbThoughtData) => res.json(dbThoughtData))
+      .then((dbThoughtData) => {
+        return User.findOneAndUpdate(
+          { _id: body.userId },
+          { $push: { thoughts: dbThoughtData._id } },
+          { new: true }
+        );
+      })
+      .then((dbUserData) => {
+        if (!dbUserData) {
+          return res
+            .status(404)
+            .json({ message: "You messed up! No user found with this id!" });
+        }
+
+        res.json({ message: "Hooray! An original thought!" });
+      })
       .catch((err) => res.status(400).json(err));
   },
 
@@ -63,13 +78,33 @@ const thoughtController = {
     Thought.findOneAndDelete({ _id: params.id })
       .then((dbThoughtData) => {
         if (!dbThoughtData) {
-          res.status(404).json({ message: "Nope. No Thought found with this id" });
+          res
+            .status(404)
+            .json({ message: "Nope. No Thought found with this id" });
           return;
         }
         res.json(dbThoughtData);
       })
       .catch((err) => res.status(400).json(err));
   },
+
+  addReaction({ params, body }, res) {
+    Thought.findOneAndUpdate(
+      { _id: params.thoughtId },
+      { $push: { reactions: body } },
+      { new: true }
+    )
+      .then((dbThoughtData) => {
+        if (!dbThoughtData) {
+          res.status(404).json({ message: "No Thought found with that id!" });
+          return;
+        }
+        res.json(dbThoughtData);
+      })
+      .catch((err) => res.status(400).json(err));
+  },
+
+  deleteReaction({}) {},
 };
 
 module.exports = thoughtController;
