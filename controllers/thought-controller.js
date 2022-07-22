@@ -51,7 +51,6 @@ const thoughtController = {
             .status(404)
             .json({ message: "You messed up! No user found with this id!" });
         }
-
         res.json({ message: "Hooray! An original thought!" });
       })
       .catch((err) => res.status(400).json(err));
@@ -69,7 +68,7 @@ const thoughtController = {
             .json({ message: "Nope. No Thought found with this id" });
           return;
         }
-        res.json(dbThoughtData);
+        res.json({ message: "Thought updated!" });
       })
       .catch((err) => res.status(400).json(err));
   },
@@ -83,7 +82,7 @@ const thoughtController = {
             .json({ message: "Nope. No Thought found with this id" });
           return;
         }
-        res.json(dbThoughtData);
+        res.json({ message: "Thought deleted!" });
       })
       .catch((err) => res.status(400).json(err));
   },
