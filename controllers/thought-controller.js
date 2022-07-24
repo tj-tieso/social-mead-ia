@@ -1,10 +1,5 @@
 const { Thought, User } = require("../models");
 
-// REQUIRED ROUTES
-// getAllThoughts, getUserThoughts, createThought,
-// updateThought
-// deleteThought
-
 const thoughtController = {
   getAllThoughts(req, res) {
     Thought.find({})

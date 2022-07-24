@@ -87,12 +87,21 @@ const userController = {
   },
 
   deleteFriend({ params }, res) {
+    console.log(params.id);
+    console.log(params.friendId);
     User.findOneAndUpdate(
       { _id: params.id },
-      { $pull: { friends: { params } } },
+      { $pull: { friends: params.friendId } },
       { new: true }
     )
-      .then((dbUserData) => res.json(dbUserData))
+      .then((dbUserData) => {
+        if (!dbUserData) {
+          return res
+            .status(404)
+            .json({ message: "Error, please check paramaters!" });
+        }
+        res.json({ message: "Friend has been deleted" });
+      })
       .catch((err) => res.json(err));
   },
 };
