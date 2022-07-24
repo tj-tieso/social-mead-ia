@@ -4,24 +4,19 @@ Week 18 Challenge NoSQL API
 
 ## Project Description
 
+This week's challenge was to build an API for a social network web application where users can share their thoughts, react to friends’ thoughts, and create a friend list.
+
 ## Table of Contents
 
-- [Website](#website)
-- [Usage](#usage)
-- [Technologies](#technologies)
+- [walkthrough](#walkthrough)
 - [Questions](#questions)
 
-## Website
+## Walkthrough
 
-Follow [this link]() to a video walkthrough of the API!
+Video Walkthroughs
 
-## Usage
-
-## Technologies
-
-This app uses the following technologies:
-
-- [Express](https://www.npmjs.com/package/express)
+[Part 1, User Routes](https://drive.google.com/file/d/1DQrofqub1bqCWKGVGs2LB2k6Cf6LEvj1/view).
+[Part 2, Thought Routes](https://drive.google.com/file/d/1Y3RqiBqU97ctZ-bYB2olPtdLdgwT0o57/view).
 
 ## Questions
 
